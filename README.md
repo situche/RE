@@ -40,12 +40,12 @@
 ## 2. 模型选型与依据
 
 ### 2.1 模型列表
-| 模型简称 | 完整名称 | 参数量 | 架构类型 |
-|---------|----------|--------|----------|
-| Qwen2.5 | Qwen/Qwen2.5-0.5B-Instruct | 5亿 | 指令调优Transformer |
-| DeepSeek | deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B | 15亿 | 蒸馏版Qwen变体 |
-| RoBERTa | FacebookAI/roberta-base | 1.25亿 | BERT式编码器 |
-| ModernBERT | answerdotai/ModernBERT-base | 1.5亿 | 优化BERT变体 |
+| 完整名称 | 参数量 | 架构类型 |
+|----------|--------|----------|
+| Qwen/Qwen2.5-0.5B-Instruct | 5亿 | 指令调优Transformer |
+| deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B | 15亿 | 蒸馏版Qwen变体 |
+| FacebookAI/roberta-base | 1.25亿 | BERT式编码器 |
+| answerdotai/ModernBERT-base | 1.5亿 | 优化BERT变体 |
 
 ### 2.2 选型依据
 - **Qwen2.5 & DeepSeek**：
@@ -107,10 +107,10 @@ graph TD
 ### 4.1 性能对比
 | 模型 | 准确率(%) | 召回率(%) | F1值(%) |
 |------|-----------|-----------|---------|
-| Qwen2.5 | 78.2 | 72.4 | 75.2 |
-| DeepSeek | 81.5 | 74.8 | 78.0 |
-| RoBERTa | 68.9 | 65.3 | 67.0 |
-| ModernBERT | 73.4 | 69.1 | 71.2 |
+| Qwen/Qwen2.5-0.5B-Instruct | 78.2 | 72.4 | 75.2 |
+| deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B | 81.5 | 74.8 | 78.0 |
+| FacebookAI/roberta-base | 68.9 | 65.3 | 67.0 |
+| answerdotai/ModernBERT-base | 73.4 | 69.1 | 71.2 |
 
 ### 4.2 关键发现
 1. **模型容量优势**：DeepSeek（15亿参数）相比Qwen2.5（5亿）F1值提升2.8%，体现规模效益
