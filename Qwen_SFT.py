@@ -222,14 +222,13 @@ def compute_metrics(eval_preds):
     }
 
 
-train_data = load_data("./data")
-test_data = load_data("./data")
-# print(train_data)
+train_data = load_data("data_path")
+test_data = load_data("data_path")
+
 train_dict = data_process(train_data)
 test_dict = data_process(test_data)
-# print(train_dict)
+
 train_dataset = Dataset.from_list(train_dict)
-# print(train_dataset)
 test_dataset = Dataset.from_list(test_dict)
 
 tokenized_train = data_encoding(train_dataset)
