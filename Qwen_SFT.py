@@ -223,8 +223,8 @@ def compute_metrics(eval_preds):
     }
 
 
-train_data = load_data("/data/wangbin/No3/dataset/train_1.jsonl")
-test_data = load_data("/data/wangbin/No3/dataset/test_1.jsonl")
+train_data = load_data("./data")
+test_data = load_data("./data")
 # print(train_data)
 train_dict = data_process(train_data)
 test_dict = data_process(test_data)
@@ -241,17 +241,16 @@ test_dataset = Dataset.from_dict(tokenized_test)
 
 # 定义训练参数
 training_args = TrainingArguments(
-    output_dir="/data/wangbin/No3/LLaMA_SFT/output",
+    output_dir="./output",
     evaluation_strategy="epoch",
     learning_rate=5e-5,
     per_device_train_batch_size=2,
     per_device_eval_batch_size=1,
     num_train_epochs=15,
     weight_decay=0.01,
-    logging_dir='/data/wangbin/No3/LLaMA_SFT/logs',
+    logging_dir='./logs',
     save_steps=500,
     save_total_limit=1,
-
 )
 
 # 定义Trainer
@@ -262,13 +261,14 @@ trainer = Trainer(
     eval_dataset=test_dataset,
     tokenizer=tokenizer,
     compute_metrics=compute_metrics,  # 将评估函数传递给Trainer
+    callbacks=[EarlyStoppingCallback(early_stopping_patience=3)],
 )
 
 # 开始训练
 trainer.train()
 
 # 保存模型和分词器
-model.save_pretrained("/data/wangbin/No3/LLaMA_SFT/output")
-tokenizer.save_pretrained("/data/wangbin/No3/LLaMA_SFT/output")
+model.save_pretrained("./output")
+tokenizer.save_pretrained("./output")
 
 print("Fine-tuned model and tokenizer have been saved.")
