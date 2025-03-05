@@ -4,19 +4,14 @@ import torch
 import numpy as np
 from datasets import Dataset
 from scipy.special import softmax
-from transformers import (
-    AutoTokenizer,
-    AutoModelForSequenceClassification,
-    TrainingArguments,
-    Trainer
-)
 from sklearn.metrics import accuracy_score, f1_score, recall_score
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, TrainingArguments, Trainer, EarlyStoppingCallback
 
 # 配置参数
 # MODEL_NAME = "FacebookAI/roberta-base"
-MODEL_NAME = "/data/wangbin/No3/ModernBERT-base"
-TRAIN_PATH = "/data/wangbin/No3/dataset/train.jsonl"
-TEST_PATH = "/data/wangbin/No3/dataset/test.jsonl"
+MODEL_NAME = "answerdotai/ModernBERT-base"
+TRAIN_PATH = "data_path"
+TEST_PATH = "data_path"
 MAX_LENGTH = 256
 
 # 初始化全局组件
@@ -91,7 +86,6 @@ def parse_predictions(logits):
 
 # 评估指标计算
 def compute_metrics(p):
-    """自定义评估指标"""
     preds = p.predictions.argmax(-1)
     return {
         "accuracy": accuracy_score(p.label_ids, preds),
@@ -137,6 +131,7 @@ def main():
         train_dataset=train_dataset,
         eval_dataset=test_dataset,
         compute_metrics=compute_metrics,
+        callbacks=[EarlyStoppingCallback(early_stopping_patience=3)],
     )
     
     # 开始训练
@@ -149,8 +144,8 @@ def main():
     print("预测结果:", parse_predictions(logits.cpu().numpy()))
     
     # 保存模型
-    model.save_pretrained("/data/wangbin/No3/RoBERTa/output")
-    tokenizer.save_pretrained("/data/wangbin/No3/RoBERTa/output")
+    model.save_pretrained("./output")
+    tokenizer.save_pretrained("./output")
 
 if __name__ == "__main__":
     main()
