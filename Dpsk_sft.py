@@ -105,8 +105,7 @@ def data_encoding(data):
     return encodings
 
 def parse_and_normalize(text, max_length=2048):
-    """全能解析函数（安全、高效、无递归错误）"""
-    # 预处理层（保障基础安全）
+    # 预处理层
     text = str(text)[:max_length].strip()
     if not text or text.lower() in {'', 'n/a', '{}', '[]'}:
         return []
@@ -190,7 +189,6 @@ def compute_metrics(eval_preds):
             # 优先使用统一解析函数
             true_triplets = parse_and_normalize(label_str)
             
-            # 兜底逻辑：处理旧格式数据
             if not true_triplets:
                 raw_label = json.loads(label_str)
                 true_triplets = [{
@@ -262,7 +260,7 @@ trainer = Trainer(
     train_dataset=train_dataset,
     eval_dataset=test_dataset,
     tokenizer=tokenizer,
-    compute_metrics=compute_metrics,  # 将评估函数传递给Trainer
+    compute_metrics=compute_metrics, 
     callbacks=[EarlyStoppingCallback(early_stopping_patience=3)],
 )
 
