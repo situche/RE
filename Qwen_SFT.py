@@ -105,8 +105,7 @@ def data_encoding(data):
     return encodings
 
 def parse_and_normalize(text, max_length=2048):
-    """全能解析函数（安全、高效、无递归错误）"""
-    # 预处理层（保障基础安全）
+    # 预处理层
     text = str(text)[:max_length].strip()
     if not text or text.lower() in {'', 'n/a', '{}', '[]'}:
         return []
@@ -211,7 +210,7 @@ def compute_metrics(eval_preds):
         fp += len(pred_set - true_set)
         fn += len(true_set - pred_set)
 
-    # 计算指标（保持不变）
+    # 计算指标
     precision = tp / (tp + fp + 1e-9)
     recall = tp / (tp + fn + 1e-9)
     f1 = 2 * (precision * recall) / (precision + recall + 1e-9)
@@ -261,7 +260,7 @@ trainer = Trainer(
     train_dataset=train_dataset,
     eval_dataset=test_dataset,
     tokenizer=tokenizer,
-    compute_metrics=compute_metrics,  # 将评估函数传递给Trainer
+    compute_metrics=compute_metrics,
     callbacks=[EarlyStoppingCallback(early_stopping_patience=3)],
 )
 
