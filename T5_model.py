@@ -12,11 +12,10 @@ tokenizer = T5Tokenizer.from_pretrained(model_name)
 model = T5ForConditionalGeneration.from_pretrained(model_name)
 model.config.decoder_start_token_id = tokenizer.pad_token_id
 
-# 示例数据（这里的数据你已经提供，不需要全部重新写）
-train_data = "/data/wangbin/No3/dataset/train.jsonl"
-test_data = "/data/wangbin/No3/dataset/test.jsonl"
+train_data = "./data"
+test_data = "./data"
 
-# 数据加载函数（确保relations转换为JSON格式）
+# 数据加载函数
 def load_data(path):
     data = []
     with open(path,'r') as f:
@@ -26,7 +25,7 @@ def load_data(path):
     return data
 
 def process_data(data):
-    result = [] # 每个元素是该句子所有关系的 JSON 数组字符串
+    result = []
     for item in data:
         sentence = item["sentence"]
         en_rel = []
@@ -39,7 +38,7 @@ def process_data(data):
                 "type": rel_type,
                 "tail": tail
             })
-        # 转换为合法的 JSON 数组字符串（注意缩进为 None）
+        # 转换为合法的 JSON 数组字符串
         relations_str = json.dumps(en_rel, ensure_ascii=False, indent=None)
         # print('relations_str: ', relations_str, '\t', 'type: ', type(relations_str))
         result.append({'sentence': sentence, 'relation': relations_str})
@@ -52,7 +51,6 @@ train_dataset = Dataset.from_list(train_dict)
 print(train_dataset)
 test_dataset = Dataset.from_list(test_dict)
 
-# 添加系统提示语句
 system_prompt = '''You are a professional information extraction model. Please directly extract all entity relationship triplets from the input text and output only a JSON array in the exact format below. Do not include any additional text:
 
 [
@@ -82,7 +80,6 @@ tokenized_train = train_dataset.map(preprocess_function, batched=True, remove_co
 tokenized_test = test_dataset.map(preprocess_function, batched=True, remove_columns=["sentence", "relation"])
 
 def extract_triplets(text):
-    """改进版正则表达式，支持更灵活的格式"""
     # 匹配键值对模式，允许三种情况：
     # 1. 带引号的键和值："head": "value"
     # 2. 无引号的键和值：head: value
@@ -117,7 +114,6 @@ def extract_triplets(text):
 def compute_metrics(pred):
     preds, labels = pred.predictions, pred.label_ids
 
-    # 解码处理保持不变
     preds = np.where((preds >= 0) & (preds < tokenizer.vocab_size), preds, tokenizer.pad_token_id)
     labels = np.where(labels != -100, labels, tokenizer.pad_token_id)
     
@@ -129,7 +125,7 @@ def compute_metrics(pred):
     true_relations = [extract_triplets(l) for l in decoded_labels] 
     # print('pred_relations: ', pred_relations)
     print('true_relations: ', true_relations)
-    # 三元组级别评估
+
     TP, FP, FN = 0, 0, 0
     for preds, truths in zip(pred_relations, true_relations):
         # 转换三元组为标准化集合
@@ -167,23 +163,23 @@ def compute_metrics(pred):
 
 # 训练参数配置
 training_args = Seq2SeqTrainingArguments(
-    output_dir="/data/wangbin/No3/T5/output",  # 模型输出目录
-    evaluation_strategy="steps",        # 按步数评估
-    # eval_steps=500,                     # 每500步评估一次
-    save_strategy="steps",              # 保存策略与评估对齐
-    # save_steps=500,                     # 保存间隔与评估相同
-    learning_rate=3e-5,                 # 适合生成任务的较小学习率
-    per_device_train_batch_size=8,      # 根据显存调整批次大小
-    per_device_eval_batch_size=16,      # 评估批次可适当放大
-    gradient_accumulation_steps=2,      # 梯度累积应对大batch需求
-    num_train_epochs=10,                # 最大训练轮次
-    warmup_ratio=0.1,                   # 热身比例
-    logging_dir="/data/wangbin/No3/T5/logs",               # 日志目录
-    logging_steps=100,                  # 每100步记录日志
-    load_best_model_at_end=True,        # 训练结束时加载最佳模型
-    # metric_for_best_model="f1",         # 以F1作为早停依据
-    predict_with_generate=True,         # 必须开启生成模式
-    generation_max_length=256,          # 与预处理长度一致
+    output_dir="./output",
+    evaluation_strategy="steps", 
+    # eval_steps=500, 
+    save_strategy="steps", 
+    # save_steps=500, 
+    learning_rate=3e-5,
+    per_device_train_batch_size=8,
+    per_device_eval_batch_size=16,
+    gradient_accumulation_steps=2,
+    num_train_epochs=15, 
+    warmup_ratio=0.1, 
+    logging_dir="./logs", 
+    logging_steps=100,
+    load_best_model_at_end=True,
+    # metric_for_best_model="f1", 
+    predict_with_generate=True, 
+    generation_max_length=256,
 )
 
 # 初始化训练器
