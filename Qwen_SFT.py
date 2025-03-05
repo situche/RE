@@ -3,6 +3,7 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, TrainingArguments
 import json
 from datasets import Dataset
+from transformers import EarlyStoppingCallback
 
 # 模型加载
 model_name = "Qwen/Qwen2.5-0.5B-Instruct"
