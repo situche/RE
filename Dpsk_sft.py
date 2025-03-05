@@ -1,9 +1,8 @@
 import re
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, TrainingArguments
 import json
+import torch
 from datasets import Dataset
-from transformers import EarlyStoppingCallback
+from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, TrainingArguments, EarlyStoppingCallback
 
 # 模型加载
 model_name = "DeepSeek-R1-Distill-Qwen-1.5B"
