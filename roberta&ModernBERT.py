@@ -18,6 +18,18 @@ MAX_LENGTH = 256
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 relation_types = []
 
+# 保证结果可重复
+def seed_everything(seed=42):
+    random.seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = True
+    
+seed_everything(42)
+
 # 数据加载与预处理
 def load_data(path):
     """加载原始数据并构建关系类型字典"""
