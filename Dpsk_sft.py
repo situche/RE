@@ -30,6 +30,17 @@ system_prompt = '''你是一个专业的信息抽取模型。请从输入的文�
 3. 严格按照上面的格式输出，保证键的位置顺序与上面JSON格式中的键的顺序完全一致，确保JSON格式正确。
 '''
 
+# 保证结果可重复
+def seed_everything(seed=42):
+    random.seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = True
+seed_everything(42)
+
 # 数据加载
 def load_data(path):
     data = []
