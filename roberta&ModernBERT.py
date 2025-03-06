@@ -3,6 +3,7 @@ import json
 import torch
 import numpy as np
 from datasets import Dataset
+from config import parse_args
 from scipy.special import softmax
 from sklearn.metrics import accuracy_score, f1_score, recall_score
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, TrainingArguments, Trainer, EarlyStoppingCallback
@@ -17,6 +18,7 @@ MAX_LENGTH = 256
 # 初始化全局组件
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 relation_types = []
+args = parse_args()
 
 # 保证结果可重复
 def seed_everything(seed=42):
@@ -123,17 +125,17 @@ def main():
     
     # 训练参数
     training_args = TrainingArguments(
-        output_dir="./results",
-        evaluation_strategy="epoch",
-        learning_rate=1e-5,
-        per_device_train_batch_size=8,
-        per_device_eval_batch_size=8,
-        num_train_epochs=10,
-        weight_decay=0.01,
-        logging_dir="./logs",
-        save_strategy="epoch",
-        load_best_model_at_end=True,
-        metric_for_best_model="f1_macro",
+        output_dir=args.output_dir,
+        evaluation_strategy=args.evaluation_strategy,
+        learning_rate=args.learning_rate,
+        per_device_train_batch_size=args.per_device_train_batch_size,
+        per_device_eval_batch_size=args.per_device_eval_batch_size,
+        num_train_epochs=args.num_train_epochs,
+        weight_decay=args.weight_decay,
+        logging_dir=args.logging_dir,
+        save_strategy=args.save_strategy,
+        load_best_model_at_end=args.load_best_model_at_end,
+        metric_for_best_model=args.metric_for_best_model,
     )
     
     # 初始化Trainer
