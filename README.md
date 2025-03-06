@@ -83,7 +83,7 @@ conda create -n re python=3.12 -y
 conda activate re
 ```
 
-## 4. 实验结果与结论
+## 4. 项目结构与运行
 ### 4.1 项目文件结构
 ```text
 RE/
