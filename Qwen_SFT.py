@@ -1,6 +1,7 @@
 import re
 import json
 import torch
+from config import parse_args
 from datasets import Dataset
 from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, TrainingArguments, EarlyStoppingCallback
 
