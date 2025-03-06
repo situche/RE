@@ -124,7 +124,7 @@ graph TD
   Decoder架构的逐token生成特性导致错误累积：当实体识别出现偏差时（如"bio-inspired model"被错误分割），Qwen2.5的关系误判率高达73.2%，而ModernBERT因独立分类设计，误判率仅39.1%。  
 
 3. **指标解耦分析**  
-| 模型类型       | 平均Precision | 平均Recall | Precision-Recall Gap |
+| 模型类型      | 平均Precision | 平均Recall | Precision-Recall Gap |
 |---------------|---------------|------------|-----------------------|
 | Encoder-only  | 86.81%        | 79.47%     | 7.34%                |
 | Decoder-only  | 97.42%        | 31.58%     | 65.84%               |
