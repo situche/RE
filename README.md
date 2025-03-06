@@ -83,7 +83,27 @@ conda activate re
 ```
 
 ## 4. 实验结果与结论
+### 4.1 项目文件结构
+qwen_sft/
+├── config.py        # 参数解析模块
+├── Qwen_SFT.py      # 主训练脚本
+├── Dpsk_SFT.py
+├── roberta&ModernBERT.py 
+├── train.jsonl      # 数据集
+├── test.jsonl
 
+### 4.2 Shell运行命令集
+#!/bin/bash
+# 以Qwen_SFT.py为例
+python Qwen_SFT.py \
+  --model_name_or_path "Qwen/Qwen2.5-0.5B-Instruct" \
+  --train_data "./data/train.jsonl" \
+  --output_dir "./output" \
+  --batch_size 4 \
+  --grad_accum_steps 2 \
+  --lr 3e-5 \
+  --warmup_ratio 0.1 \
+  --其他需要添加的参数
 
 ## 5. 实验设计
 
