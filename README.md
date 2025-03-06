@@ -90,11 +90,10 @@ qwen_sft/
 ├── Dpsk_SFT.py
 ├── roberta&ModernBERT.py 
 ├── train.jsonl      # 数据集
-├── test.jsonl
+└── test.jsonl
 
 ### 4.2 Shell运行命令集
 #!/bin/bash
-# 以Qwen_SFT.py为例
 python Qwen_SFT.py \
   --model_name_or_path "Qwen/Qwen2.5-0.5B-Instruct" \
   --train_data "./data/train.jsonl" \
