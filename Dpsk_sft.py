@@ -1,6 +1,7 @@
 import re
 import json
 import torch
+from config import parse_args
 from datasets import Dataset
 from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, TrainingArguments, EarlyStoppingCallback
 
@@ -17,6 +18,7 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 tokenizer.pad_token = tokenizer.eos_token
 tokenizer.pad_token_id = tokenizer.eos_token_id
 tokenizer.padding_side = 'left'
+args = parse_args() 
 
 system_prompt = '''你是一个专业的信息抽取模型。请从输入的文本中直接提取出所有的实体关系三元组，且仅输出符合下面格式的JSON数组，不要添加任何其他文字：
 
@@ -250,17 +252,16 @@ test_dataset = Dataset.from_dict(tokenized_test)
 
 # 定义训练参数
 training_args = TrainingArguments(
-    output_dir="./output",
-    evaluation_strategy="epoch",
-    learning_rate=5e-5,
-    per_device_train_batch_size=2,
-    per_device_eval_batch_size=1,
-    num_train_epochs=15,
-    weight_decay=0.01,
-    logging_dir='./logs',
-    save_steps=500,
-    save_total_limit=1,
-
+    output_dir=args.output_dir,
+    evaluation_strategy=args.evaluation_strategy,
+    learning_rate=args.learning_rate,
+    per_device_train_batch_size=args.per_device_train_batch_size,
+    per_device_eval_batch_size=args.per_device_eval_batch_size,
+    num_train_epochs=args.num_train_epochs,
+    weight_decay=args.weight_decay,
+    logging_dir=args.logging_dir,
+    save_steps=args.save_steps,
+    save_total_limit=args.save_total_limit,
 )
 
 # 定义Trainer
