@@ -75,6 +75,7 @@ transformers == 4.49.0
 datasets == 3.3.1
 sklearn-crfsuite == 0.5.0  # 指标计算
 ```
+
 ### 3.2 环境配置
 #### 使用conda创建虚拟环境
 ```python
@@ -84,7 +85,7 @@ conda activate re
 
 ## 4. 实验结果与结论
 ### 4.1 项目文件结构
-qwen_sft/
+RE/
 ├── config.py        # 参数解析模块
 ├── Qwen_SFT.py      # 主训练脚本
 ├── Dpsk_SFT.py
