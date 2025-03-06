@@ -132,19 +132,13 @@ graph TD
 
 ### 5.2 核心指标计算公式
 精确率（Precision）：
-[
-P = \frac{\text{正确预测的三元组数}}{\text{模型预测的三元组总数}}
-]
+![Accuracy](https://i.upmath.me/svg/Accuracy%20%3D%20%5Cfrac%7B%5Ctext%7BTrue%20Positives%7D%20%2B%20%5Ctext%7BTrue%20Negatives%7D%7D%7B%5Ctext%7BTotal%20Samples%7D%7D)
 
 召回率（Recall）：
-[
-R = \frac{\text{正确预测的三元组数}}{\text{标注数据的三元组总数}}
-]
+![Recall](https://i.upmath.me/svg/Recall%20%3D%20%5Cfrac%7B%5Ctext%7BTrue%20Positives%7D%7D%7B%5Ctext%7BTrue%20Positives%7D%20%2B%20%5Ctext%7BFalse%20Negatives%7D%7D)
 
 F1值：
-[
-F1 = 2 \times \frac{P \times R}{P + R}
-]
+![F1](https://i.upmath.me/svg/F1%5Ctext%7B-Score%7D%20%3D%202%20%5Ctimes%20%5Cfrac%7B%5Ctext%7BPrecision%7D%20%5Ctimes%20%5Ctext%7BRecall%7D%7D%7B%5Ctext%7BPrecision%7D%20%2B%20%5Ctext%7BRecall%7D%7D)
 
 ### 5.3 结论
 
