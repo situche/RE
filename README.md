@@ -149,21 +149,21 @@ graph TD
 ## 6. 实验结果与结论
 
 ### 6.1 性能对比
-| 模型 | 准确率(%) | 召回率(%) | F1值(%) |
-|------|-----------|-----------|---------|
-| Qwen/Qwen2.5-0.5B-Instruct | 78.2 | 72.4 | 75.2 |
-| deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B | 81.5 | 74.8 | 78.0 |
-| FacebookAI/roberta-base | 68.9 | 65.3 | 67.0 |
-| answerdotai/ModernBERT-base | 73.4 | 69.1 | 71.2 |
+| 模型 | 准确率(%) | 准确率(%) | 召回率(%) | F1值(%) |
+|------|---------|-----------|-----------|---------|
+| Qwen/Qwen2.5-0.5B-Instruct | without neft | 96.83 | 29.19 | 44.85 |
+| Qwen/Qwen2.5-0.5B-Instruct | with neft | 87.65 | 33.97 | 48.97 |
+| deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B | without neft | 98.61 | 33.97 | 50.53 |
+| deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B | with neft | 97.22 | 33.49 | 49.82 |
+| FacebookAI/roberta-base |  | 86.65 | 79.39 | 79.15 |
+| answerdotai/ModernBERT-base |  | 86.96 | 79.55 | 80.17 |
 
 ### 6.2 核心指标计算公式
-精确率（Precision）：
+
 ![Precision](https://i.upmath.me/svg/Precision%20%3D%20%5Cfrac%7B%5Ctext%7BTrue%20Positives%7D%7D%7B%5Ctext%7BTrue%20Positives%7D%20%2B%20%5Ctext%7BFalse%20Positives%7D%7D)
 
-召回率（Recall）：
 ![Recall](https://i.upmath.me/svg/Recall%20%3D%20%5Cfrac%7B%5Ctext%7BTrue%20Positives%7D%7D%7B%5Ctext%7BTrue%20Positives%7D%20%2B%20%5Ctext%7BFalse%20Negatives%7D%7D)
 
-F1值：
 ![F1](https://i.upmath.me/svg/F1%5Ctext%7B-Score%7D%20%3D%202%20%5Ctimes%20%5Cfrac%7B%5Ctext%7BPrecision%7D%20%5Ctimes%20%5Ctext%7BRecall%7D%7D%7B%5Ctext%7BPrecision%7D%20%2B%20%5Ctext%7BRecall%7D%7D)
 
 ### 6.3 结论
