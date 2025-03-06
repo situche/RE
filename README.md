@@ -82,9 +82,12 @@ conda create -n re python=3.12 -y
 conda activate re
 ```
 
-## 4. 实验设计
+## 4. 实验结果与结论
 
-### 4.1 处理流程
+
+## 5. 实验设计
+
+### 5.1 处理流程
 ```mermaid
 graph TD
     A[数据加载] --> B[实体位置编码]
@@ -95,7 +98,7 @@ graph TD
     F --> G[指标计算]
 ```
 
-### 4.2 关键技术
+### 5.2 关键技术
 1. **数据预处理**：
    - 基于字符位置的实体跨度提取
    - 模型特定格式转换：
@@ -120,9 +123,9 @@ graph TD
 
 ---
 
-## 5. 实验结果与结论
+## 6. 实验结果与结论
 
-### 5.1 性能对比
+### 6.1 性能对比
 | 模型 | 准确率(%) | 召回率(%) | F1值(%) |
 |------|-----------|-----------|---------|
 | Qwen/Qwen2.5-0.5B-Instruct | 78.2 | 72.4 | 75.2 |
@@ -130,9 +133,9 @@ graph TD
 | FacebookAI/roberta-base | 68.9 | 65.3 | 67.0 |
 | answerdotai/ModernBERT-base | 73.4 | 69.1 | 71.2 |
 
-### 5.2 核心指标计算公式
+### 6.2 核心指标计算公式
 精确率（Precision）：
-![Accuracy](https://i.upmath.me/svg/Accuracy%20%3D%20%5Cfrac%7B%5Ctext%7BTrue%20Positives%7D%20%2B%20%5Ctext%7BTrue%20Negatives%7D%7D%7B%5Ctext%7BTotal%20Samples%7D%7D)
+![Precision](https://i.upmath.me/svg/Precision%20%3D%20%5Cfrac%7B%5Ctext%7BTrue%20Positives%7D%7D%7B%5Ctext%7BTrue%20Positives%7D%20%2B%20%5Ctext%7BFalse%20Positives%7D%7D)
 
 召回率（Recall）：
 ![Recall](https://i.upmath.me/svg/Recall%20%3D%20%5Cfrac%7B%5Ctext%7BTrue%20Positives%7D%7D%7B%5Ctext%7BTrue%20Positives%7D%20%2B%20%5Ctext%7BFalse%20Negatives%7D%7D)
@@ -140,9 +143,9 @@ graph TD
 F1值：
 ![F1](https://i.upmath.me/svg/F1%5Ctext%7B-Score%7D%20%3D%202%20%5Ctimes%20%5Cfrac%7B%5Ctext%7BPrecision%7D%20%5Ctimes%20%5Ctext%7BRecall%7D%7D%7B%5Ctext%7BPrecision%7D%20%2B%20%5Ctext%7BRecall%7D%7D)
 
-### 5.3 结论
+### 6.3 结论
 
-#### 5.3.1. 架构差异主导性能表现：双向注意力机制的决定性优势
+#### 6.3.1. 架构差异主导性能表现：双向注意力机制的决定性优势
   实验数据验证了Encoder-only模型（ModernBERT F1=80.17，RoBERTa F1=79.15）相比Decoder-only模型（DeepSeek-R1 F1=50.53，Qwen2.5 F1=44.85）在综合性能上的显著优势，这源于两类架构的本质差异：  
 
 1. **信息感知维度**  
@@ -153,7 +156,7 @@ F1值：
 
 ---
 
-#### 5.3.2. Encoder架构的技术演进：ModernBERT的优化启示  
+#### 6.3.2. Encoder架构的技术演进：ModernBERT的优化启示  
   ModernBERT相较于基础RoBERTa的性能提升，揭示了Encoder模型改进的关键路径：  
 
 1. **动态掩码的泛化增益**  
@@ -164,7 +167,7 @@ F1值：
 
 ---
 
-#### 5.3.3. Decoder模型的特性边界：生成优势与检索局限  
+#### 6.3.3. Decoder模型的特性边界：生成优势与检索局限  
   尽管Decoder模型整体表现欠佳，但特定场景下仍显现独特价值：  
 
 - **高置信度预测可靠性**  
@@ -175,7 +178,7 @@ F1值：
 
 ---
 
-#### 5.3.4. 对抗实验的深层启示：鲁棒性瓶颈与改进方向  
+#### 6.3.4. 对抗实验的深层启示：鲁棒性瓶颈与改进方向  
 针对Decoder模型的对抗测试揭示出关键脆弱点：  
 
 1. **精确率-鲁棒性悖论**  
