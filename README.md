@@ -77,8 +77,10 @@ sklearn-crfsuite == 0.5.0  # 指标计算
 ```
 ### 3.2 环境配置
 #### 使用conda创建虚拟环境
+```python
 conda create -n re python=3.12 -y
 conda activate re
+```
 
 ## 4. 实验设计
 
