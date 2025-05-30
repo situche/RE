@@ -170,7 +170,7 @@ graph TD
 
 1. **结果分析**  
 
-  实验数据验证了Encoder-only模型（ModernBERT F1=80.17%，RoBERTa F1=79.15%）相比Decoder-only模型（DeepSeek-R1 F1=50.53%，Qwen2.5 F1=48.97%）在综合性能上的显著优势，该现象主要源于两类架构的本质差异。
+    实验数据验证了Encoder-only模型（ModernBERT F1=80.17%，RoBERTa F1=79.15%）相比Decoder-only模型（DeepSeek-R1 F1=50.53%，Qwen2.5 F1=48.97%）在综合性能上的显著优势，该现象主要源于两类架构的本质差异。
 
 2. **信息感知维度**  
 
